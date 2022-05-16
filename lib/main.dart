@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:catering_flutter_frontend/config/index.dart';
-import 'dart:developer' as developer;
+import 'package:catering_flutter_frontend/pages/orderPage/index.dart';
 
 void main() {
   runApp(const CateringApp());
@@ -18,7 +18,7 @@ class CateringApp extends StatelessWidget {
           primaryColor: COLOR_RED,
           colorScheme:
               ColorScheme.fromSwatch().copyWith(secondary: COLOR_GREY)),
-      home: OrderPage(),
+      home: const OrderPage(),
     );
   }
 }
