@@ -16,6 +16,7 @@ class CateringApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primaryColor: COLOR_RED,
+          splashColor: COLOR_GREY_LIGHT,
           colorScheme:
               ColorScheme.fromSwatch().copyWith(secondary: COLOR_GREY)),
       home: const OrderPage(),

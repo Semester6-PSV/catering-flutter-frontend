@@ -15,8 +15,8 @@ class SearchInput extends StatefulWidget {
   SearchInputState createState() => SearchInputState();
 }
 
-class SearchInputState extends State<SearchInput>{
-@override
+class SearchInputState extends State<SearchInput> {
+  @override
   Widget build(BuildContext context) {
     return Container(
         child: TextField(
@@ -37,12 +37,13 @@ class SearchInputState extends State<SearchInput>{
           ),
           onChanged: widget.onChange,
         ),
-        decoration:
-            BoxDecoration(borderRadius: BorderRadius.circular(3), boxShadow: [
-          BoxShadow(
-              offset: const Offset(0, 1),
-              color: COLOR_BLACK.withOpacity(0.3),
-              blurRadius: 3)
-        ]));
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(3)),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 1),
+                  color: COLOR_BLACK.withOpacity(0.25),
+                  blurRadius: 2)
+            ]));
   }
 }
