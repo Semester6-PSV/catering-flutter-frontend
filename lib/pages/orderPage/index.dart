@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:catering_flutter_frontend/config/index.dart';
 import 'package:catering_flutter_frontend/components/searchInput.dart';
+import 'package:catering_flutter_frontend/dummy/cateringProduct.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({Key? key}) : super(key: key);
