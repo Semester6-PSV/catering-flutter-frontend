@@ -103,7 +103,7 @@ Widget cateringProductListView(
                                       fontSize: 18,
                                       color: COLOR_RED,
                                     )),
-                                Text(productPriceToString(product.price),
+                                Text((product.price * product.amount).toString(),
                                     style: const TextStyle(
                                       fontFamily: 'Klavika-Medium',
                                       fontSize: 18,
@@ -136,11 +136,11 @@ Widget cateringProductListView(
                               children: [
                                 productRemoveAddButton(product.id,
                                     Icons.remove_outlined, onItemRemove),
-                                const Padding(
+                                Padding(
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 6),
-                                    child: Text('0',
-                                        style: TextStyle(
+                                        const EdgeInsets.symmetric(horizontal: 6),
+                                    child: Text(product.amount.toString(),
+                                        style: const TextStyle(
                                           fontFamily: 'Klavika-Medium',
                                           fontSize: 16,
                                           color: COLOR_BLACK,

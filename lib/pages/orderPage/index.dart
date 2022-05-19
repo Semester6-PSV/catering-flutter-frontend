@@ -23,21 +23,37 @@ class OrderPageState extends State<OrderPage> {
 
   void switchProductsTypeSelector() {
     setState(() {
-      if(activeProductSelector == 0){
+      if (activeProductSelector == 0) {
         activeProductSelector = 1;
         selectedProductsType = CateringProductType.drinks;
-      }
-      else{
+      } else {
         activeProductSelector = 0;
         selectedProductsType = CateringProductType.food;
-
       }
     });
   }
 
-  void onProductItemRemove(int productId) {print('remove product item');}
+  void onProductItemRemove(int productId) {
+    for (var product in cateringProducts) {
+      if (product.id == productId) {
+        if (product.amount != 0) {
+          setState(() {
+            product.amount -= 1;
+          });
+        }
+      }
+    }
+  }
 
-  void onProductItemAdd(int productId) {print('add product item');}
+  void onProductItemAdd(int productId) {
+    for (var product in cateringProducts) {
+      if (product.id == productId) {
+        setState(() {
+          product.amount += 1;
+        });
+      }
+    }
+  }
 
   Widget productSelector(String title, int index) {
     String fontFamily = 'Klavika-Light';
@@ -107,7 +123,11 @@ class OrderPageState extends State<OrderPage> {
                               Expanded(child: productSelector('Drinken', 1)),
                             ], mainAxisAlignment: MainAxisAlignment.center)),
                         const SizedBox(height: 20),
-                        cateringProductListView(cateringProducts, selectedProductsType, onProductItemRemove, onProductItemAdd)
+                        cateringProductListView(
+                            cateringProducts,
+                            selectedProductsType,
+                            onProductItemRemove,
+                            onProductItemAdd)
                       ])),
             )));
   }
