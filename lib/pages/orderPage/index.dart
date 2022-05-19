@@ -28,6 +28,10 @@ class OrderPageState extends State<OrderPage> {
     });
   }
 
+  void onProductItemRemove(int productId) {print('remove product item');}
+
+  void onProductItemAdd(int productId) {print('add product item');}
+
   Widget productSelector(String title, int index) {
     String fontFamily = 'Klavika-Light';
 
@@ -86,8 +90,8 @@ class OrderPageState extends State<OrderPage> {
                             duration: const Duration(milliseconds: 400),
                             decoration: const BoxDecoration(
                                 color: COLOR_GREY,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(borderRadius))),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(borderRadius))),
                             child: Row(children: [
                               Expanded(child: productSelector('Eten', 0)),
                               VerticalDivider(
@@ -96,7 +100,7 @@ class OrderPageState extends State<OrderPage> {
                               Expanded(child: productSelector('Drinken', 1)),
                             ], mainAxisAlignment: MainAxisAlignment.center)),
                         const SizedBox(height: 20),
-                        cateringProductListView(cateringProducts, gridPadding)
+                        cateringProductListView(cateringProducts, gridPadding, onProductItemRemove, onProductItemAdd)
                       ])),
             )));
   }

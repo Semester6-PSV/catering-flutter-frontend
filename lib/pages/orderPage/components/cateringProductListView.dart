@@ -9,7 +9,28 @@ String productPriceToString(double price) {
   return price.toString();
 }
 
-Widget cateringProductListView(List<CateringProduct> products,double padding) {
+Widget productRemoveAddButton(int productId, IconData icon, Function onClick) {
+  return InkWell(
+      child: SizedBox(
+        width: 25,
+        height: 25,
+        child: Container(
+          decoration: const BoxDecoration(
+              color: COLOR_RED,
+              borderRadius:
+                  BorderRadius.all(Radius.circular(borderRadius / 2))),
+          child: Icon(
+            icon,
+            color: COLOR_WHITE,
+            size: 16,
+          ),
+        ),
+      ),
+      onTap: () =>{ onClick(productId) });
+}
+
+Widget cateringProductListView(List<CateringProduct> products, double padding,
+    Function onItemRemove, Function onItemAdd) {
   List<Widget> productItems = <Widget>[];
 
   for (int i = 0; i < products.length; i++) {
@@ -108,15 +129,19 @@ Widget cateringProductListView(List<CateringProduct> products,double padding) {
                             ],
                           ),
                           Row(
-                            children: const [
-                              // IconButton(icon: const Icon(Icons.remove_outlined), onPressed: (){}),
-                              Padding(
-                                  padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                  child: Text('',
+                            children: [
+                              productRemoveAddButton(product.id, 
+                                  Icons.remove_outlined, onItemRemove),
+                              const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 6),
+                                  child: Text('0',
                                       style: TextStyle(
-                                          fontFamily: 'Klavika-Medium',
-                                          fontSize: 16,
-                                          color: COLOR_BLACK)))
+                                        fontFamily: 'Klavika-Medium',
+                                        fontSize: 16,
+                                        color: COLOR_BLACK,
+                                      ))),
+                              productRemoveAddButton(product.id,
+                                  Icons.add_outlined, onItemAdd),
                             ],
                           )
                         ],
