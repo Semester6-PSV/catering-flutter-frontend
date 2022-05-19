@@ -12,8 +12,8 @@ String productPriceToString(double price) {
 Widget productRemoveAddButton(int productId, IconData icon, Function onClick) {
   return InkWell(
       child: SizedBox(
-        width: 25,
-        height: 25,
+        width: 30,
+        height: 30,
         child: Container(
           decoration: const BoxDecoration(
               color: COLOR_RED,
@@ -42,7 +42,7 @@ Widget cateringProductListView(
     if (product.productType == productType) {
       productItems.add(Container(
         width: double.infinity,
-        height: 80,
+        height: 90,
         margin: const EdgeInsets.only(bottom: gridPadding),
         decoration: BoxDecoration(
             boxShadow: [
@@ -100,20 +100,20 @@ Widget cateringProductListView(
                                 const Text('€ ',
                                     style: TextStyle(
                                       fontFamily: 'Klavika-Medium',
-                                      fontSize: 18,
+                                      fontSize: 20,
                                       color: COLOR_RED,
                                     )),
                                 Text((product.price * product.amount).toString(),
                                     style: const TextStyle(
                                       fontFamily: 'Klavika-Medium',
-                                      fontSize: 18,
+                                      fontSize: 20,
                                       color: COLOR_BLACK,
                                     ))
                               ],
                             )
                           ],
                         ),
-                        const SizedBox(height: 3),
+                        const SizedBox(height: 5),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,12 +123,12 @@ Widget cateringProductListView(
                                 const Text('€ ',
                                     style: TextStyle(
                                         fontFamily: 'Klavika-Light',
-                                        fontSize: 18,
+                                        fontSize: 20,
                                         color: COLOR_RED)),
                                 Text(productPriceToString(product.price),
                                     style: const TextStyle(
                                         fontFamily: 'Klavika-Light',
-                                        fontSize: 18,
+                                        fontSize: 20,
                                         color: COLOR_BLACK))
                               ],
                             ),
@@ -142,7 +142,7 @@ Widget cateringProductListView(
                                     child: Text(product.amount.toString(),
                                         style: const TextStyle(
                                           fontFamily: 'Klavika-Medium',
-                                          fontSize: 16,
+                                          fontSize: 18,
                                           color: COLOR_BLACK,
                                         ))),
                                 productRemoveAddButton(

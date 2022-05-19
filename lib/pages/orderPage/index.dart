@@ -90,7 +90,7 @@ class OrderPageState extends State<OrderPage> {
             body: SingleChildScrollView(
               child: Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
+                  padding: EdgeInsets.fromLTRB(gridPadding, gridPadding, gridPadding, gridPadding * 2),
                   color: COLOR_WHITE,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
