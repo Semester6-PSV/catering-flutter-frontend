@@ -9,11 +9,11 @@ String productPriceToString(double price) {
   return price.toString();
 }
 
-Widget cateringProductListView(double padding) {
+Widget cateringProductListView(List<CateringProduct> products,double padding) {
   List<Widget> productItems = <Widget>[];
 
-  for (int i = 0; i < dummyCateringProducts.length; i++) {
-    CateringProduct product = dummyCateringProducts[i];
+  for (int i = 0; i < products.length; i++) {
+    CateringProduct product = products[i];
 
     productItems.add(Container(
       width: double.infinity,

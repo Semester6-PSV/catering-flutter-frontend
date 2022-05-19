@@ -1,3 +1,4 @@
+import 'package:catering_flutter_frontend/models/cateringProduct.dart';
 import 'package:flutter/material.dart';
 import 'package:catering_flutter_frontend/config/index.dart';
 import 'package:catering_flutter_frontend/components/searchInput.dart';
@@ -13,6 +14,7 @@ class OrderPage extends StatefulWidget {
 class OrderPageState extends State<OrderPage> {
   double gridPadding = 15;
   int activeProductSelector = 0;
+  List<CateringProduct> cateringProducts = dummyCateringProducts;
 
   void searchProductsByKeyword(String keyword) {
     return;
@@ -94,7 +96,7 @@ class OrderPageState extends State<OrderPage> {
                               Expanded(child: productSelector('Drinken', 1)),
                             ], mainAxisAlignment: MainAxisAlignment.center)),
                         const SizedBox(height: 20),
-                        cateringProductListView(gridPadding)
+                        cateringProductListView(cateringProducts, gridPadding)
                       ])),
             )));
   }
