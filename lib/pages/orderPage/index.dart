@@ -15,6 +15,7 @@ class OrderPageState extends State<OrderPage> {
   double gridPadding = 15;
   int activeProductSelector = 0;
   List<CateringProduct> cateringProducts = dummyCateringProducts;
+  CateringProductType selectedProductsType = CateringProductType.food;
 
   void searchProductsByKeyword(String keyword) {
     return;
@@ -22,9 +23,15 @@ class OrderPageState extends State<OrderPage> {
 
   void switchProductsTypeSelector() {
     setState(() {
-      activeProductSelector = activeProductSelector == 0 ? 1 : 0;
+      if(activeProductSelector == 0){
+        activeProductSelector = 1;
+        selectedProductsType = CateringProductType.drinks;
+      }
+      else{
+        activeProductSelector = 0;
+        selectedProductsType = CateringProductType.food;
 
-      //TODO - Also update product list according to selected product type ("eten" or "drinken")
+      }
     });
   }
 
@@ -100,7 +107,7 @@ class OrderPageState extends State<OrderPage> {
                               Expanded(child: productSelector('Drinken', 1)),
                             ], mainAxisAlignment: MainAxisAlignment.center)),
                         const SizedBox(height: 20),
-                        cateringProductListView(cateringProducts, gridPadding, onProductItemRemove, onProductItemAdd)
+                        cateringProductListView(cateringProducts, selectedProductsType, onProductItemRemove, onProductItemAdd)
                       ])),
             )));
   }
