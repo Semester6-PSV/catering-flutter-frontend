@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class CateringProduct {
   final String title;
   final double price;
@@ -16,5 +14,7 @@ List<CateringProduct> dummyCateringProducts = [
   CateringProduct(title: 'Bier 0.5L', price: 5, image: ''),
   CateringProduct(title: 'Bier 0.2L', price: 2.75, image: ''),
   CateringProduct(title: 'Cola 0.2L', price: 2.75, image: ''),
+  CateringProduct(title: 'Cola zero 0.2L', price: 2.75, image: ''),
+  CateringProduct(title: 'Fanta 0.2L', price: 2.75, image: ''),
   CateringProduct(title: 'Ice Tea 0.2L', price: 2.75, image: ''),
 ];

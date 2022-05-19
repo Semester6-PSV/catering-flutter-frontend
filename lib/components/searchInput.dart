@@ -21,11 +21,10 @@ class SearchInputState extends State<SearchInput> {
     return Container(
         child: TextField(
           style: const TextStyle(
-              fontFamily: 'Klavika-Light', fontSize: 18, color: COLOR_BLACK),
+              fontFamily: 'Klavika-Light', fontSize: 18, color: COLOR_BLACK, height: 1.4),
           decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(10),
             border: InputBorder.none,
-            fillColor: COLOR_WHITE,
-            filled: true,
             hintText: widget.placeholder,
             suffixIcon: const Align(
               widthFactor: 1.0,
@@ -38,7 +37,8 @@ class SearchInputState extends State<SearchInput> {
           onChanged: widget.onChange,
         ),
         decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(3)),
+          color: COLOR_WHITE,
+            borderRadius: const BorderRadius.all(Radius.circular(borderRadius)),
             boxShadow: [
               BoxShadow(
                   offset: const Offset(0, 1),
