@@ -57,9 +57,13 @@ class OrderPageState extends State<OrderPage> {
     }
   }
 
-  void openOrderPopup() {}
+  void openOrderPopup() {
+    return;
+  }
 
-  void routeToCheckoutPage() {}
+  void routeToCheckoutPage() {
+    return;
+  }
 
   Widget productSelector(String title, int index) {
     String fontFamily = 'Klavika-Light';
@@ -149,20 +153,20 @@ class OrderPageState extends State<OrderPage> {
                 ]),
                 padding: EdgeInsets.all(gridPadding),
                 child: Row(children: [
-                  const Expanded(
+                  Expanded(
                       child: CustomButton(
                     text: 'Bekijk bestelling',
                     type: ButtonType.secondary,
-                    onClick: null,
+                    onClick: openOrderPopup,
                   )),
                   VerticalDivider(
                     width: gridPadding,
                   ),
-                  const Expanded(
+                  Expanded(
                       child: CustomButton(
                     text: 'Bestelling afronden',
                     type: ButtonType.primary,
-                    onClick: null,
+                    onClick: routeToCheckoutPage,
                   )),
                 ]),
               ),

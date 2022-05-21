@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatefulWidget {
   final String text;
   final ButtonType type;
-  final Function? onClick;
+  final Function() onClick;
 
   const CustomButton(
       {Key? key, required this.text, required this.type, required this.onClick})
@@ -43,7 +43,7 @@ class CustomButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: () {},
+        onPressed: widget.onClick,
         style: TextButton.styleFrom(
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
