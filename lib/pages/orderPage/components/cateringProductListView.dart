@@ -103,7 +103,7 @@ Widget cateringProductListView(
                                       fontSize: 20,
                                       color: COLOR_RED,
                                     )),
-                                Text((product.price * product.amount).toString(),
+                                Text(productPriceToString(product.price * product.amount),
                                     style: const TextStyle(
                                       fontFamily: 'Klavika-Medium',
                                       fontSize: 20,

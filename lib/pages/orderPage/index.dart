@@ -2,7 +2,9 @@ import 'package:catering_flutter_frontend/models/cateringProduct.dart';
 import 'package:flutter/material.dart';
 import 'package:catering_flutter_frontend/config/index.dart';
 import 'package:catering_flutter_frontend/components/searchInput.dart';
-import 'package:catering_flutter_frontend/pages/orderPage/components/cateringProductListView.dart';
+import 'package:catering_flutter_frontend/components/button.dart';
+
+import 'components/cateringProductListView.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({Key? key}) : super(key: key);
@@ -55,6 +57,10 @@ class OrderPageState extends State<OrderPage> {
     }
   }
 
+  void openOrderPopup() {}
+
+  void routeToCheckoutPage() {}
+
   Widget productSelector(String title, int index) {
     String fontFamily = 'Klavika-Light';
 
@@ -87,48 +93,79 @@ class OrderPageState extends State<OrderPage> {
                 backgroundColor: COLOR_RED_DARK,
                 title: const Text('Bestel online je eten of drinken',
                     style: TextStyle(fontFamily: 'Klavika-Medium'))),
-            body: SingleChildScrollView(
-              child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(gridPadding, gridPadding, gridPadding, gridPadding * 2),
-                  color: COLOR_WHITE,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Stel je bestelling samen',
-                              style: TextStyle(
-                                  fontFamily: 'Klavika-Medium', fontSize: 22),
-                            )),
-                        const SizedBox(height: 15),
-                        SearchInput(
-                          placeholder: 'Zoek een product',
-                          onChange: searchProductsByKeyword,
-                        ),
-                        const SizedBox(height: 30),
-                        AnimatedContainer(
-                            height: 45,
-                            duration: const Duration(milliseconds: 400),
-                            decoration: const BoxDecoration(
-                                color: COLOR_GREY,
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(borderRadius))),
-                            child: Row(children: [
-                              Expanded(child: productSelector('Eten', 0)),
-                              VerticalDivider(
-                                width: gridPadding,
-                              ),
-                              Expanded(child: productSelector('Drinken', 1)),
-                            ], mainAxisAlignment: MainAxisAlignment.center)),
-                        const SizedBox(height: 20),
-                        cateringProductListView(
-                            cateringProducts,
-                            selectedProductsType,
-                            onProductItemRemove,
-                            onProductItemAdd)
-                      ])),
-            )));
+            body: Column(children: [
+              Expanded(
+                  child: SingleChildScrollView(
+                child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.fromLTRB(
+                        gridPadding, gridPadding, gridPadding, gridPadding * 2),
+                    color: COLOR_WHITE,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Stel je bestelling samen',
+                                style: TextStyle(
+                                    fontFamily: 'Klavika-Medium', fontSize: 22),
+                              )),
+                          const SizedBox(height: 15),
+                          SearchInput(
+                            placeholder: 'Zoek een product',
+                            onChange: searchProductsByKeyword,
+                          ),
+                          const SizedBox(height: 30),
+                          AnimatedContainer(
+                              height: 45,
+                              duration: const Duration(milliseconds: 400),
+                              decoration: const BoxDecoration(
+                                  color: COLOR_GREY,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(borderRadius))),
+                              child: Row(children: [
+                                Expanded(child: productSelector('Eten', 0)),
+                                VerticalDivider(
+                                  width: gridPadding,
+                                ),
+                                Expanded(child: productSelector('Drinken', 1)),
+                              ], mainAxisAlignment: MainAxisAlignment.center)),
+                          const SizedBox(height: 20),
+                          cateringProductListView(
+                              cateringProducts,
+                              selectedProductsType,
+                              onProductItemRemove,
+                              onProductItemAdd)
+                        ])),
+              )),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(color: COLOR_WHITE, boxShadow: [
+                  BoxShadow(
+                      offset: const Offset(0, -1),
+                      color: COLOR_BLACK.withOpacity(0.25),
+                      blurRadius: 2)
+                ]),
+                padding: EdgeInsets.all(gridPadding),
+                child: Row(children: [
+                  const Expanded(
+                      child: CustomButton(
+                    text: 'Bekijk bestelling',
+                    type: ButtonType.secondary,
+                    onClick: null,
+                  )),
+                  VerticalDivider(
+                    width: gridPadding,
+                  ),
+                  const Expanded(
+                      child: CustomButton(
+                    text: 'Bestelling afronden',
+                    type: ButtonType.primary,
+                    onClick: null,
+                  )),
+                ]),
+              ),
+            ])));
   }
 }

@@ -1,8 +1,4 @@
-enum CateringProductType {
-    drinks,
-    food
-}
-
+import 'package:catering_flutter_frontend/config/index.dart';
 class CateringProduct {
   final int id;
   final String title;
