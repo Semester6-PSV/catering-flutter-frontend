@@ -1,43 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:catering_flutter_frontend/config/index.dart';
 import 'package:catering_flutter_frontend/components/button.dart';
+import 'package:catering_flutter_frontend/components/orderedCateringProductsList.dart';
 
 Widget orderBottomModal(var cateringProducts, Function() onFinish) {
-  List<Widget> addedProducts = <Widget>[];
-  double totalPrice = 0;
-
-  for (var product in cateringProducts) {
-    if (product.amount > 0) {
-      totalPrice += product.amount * product.price;
-
-      addedProducts.add(Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Text(product.amount.toString(),
-                  style: const TextStyle(
-                      fontFamily: 'Klavika-Medium', fontSize: 20)),
-              const SizedBox(width: 10),
-              Text(product.title,
-                  style: const TextStyle(
-                      fontFamily: 'Klavika-Light', fontSize: 20))
-            ],
-          ),
-          Expanded(
-              child: Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-                '€' + productPriceToString(product.amount * product.price),
-                style: const TextStyle(
-                    fontFamily: 'Klavika-Medium', fontSize: 20)),
-          )),
-          const SizedBox(height: 30)
-        ],
-      ));
-    }
-  }
-
+  double totalPrice = getTotalPriceOfOrder(cateringProducts);
+  
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(30),
@@ -51,7 +19,9 @@ Widget orderBottomModal(var cateringProducts, Function() onFinish) {
       const Text('Bestelde producten',
           style: TextStyle(fontFamily: 'Klavika-Light', fontSize: 20)),
       const SizedBox(height: 10),
-      SizedBox(width: double.infinity, child: Column(children: addedProducts)),
+      SizedBox(
+          width: double.infinity,
+          child: orderedCateringProductsList(cateringProducts)),
       const SizedBox(height: 30),
       Container(
           width: double.infinity,

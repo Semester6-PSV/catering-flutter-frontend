@@ -58,7 +58,7 @@ class OrderPageState extends State<OrderPage> {
   }
 
   void finishOrder() {
-    Navigator.pushNamed(context, '/orderOverviewPage');
+    Navigator.pushNamed(context, '/orderOverviewPage', arguments: {'cateringProducts': cateringProducts});
   }
 
   void openOrderPopup(context) {
