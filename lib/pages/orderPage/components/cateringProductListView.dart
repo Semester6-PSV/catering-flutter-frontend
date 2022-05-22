@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:catering_flutter_frontend/config/index.dart';
+import 'package:catering_flutter_frontend/config/utils.dart';
 import 'package:catering_flutter_frontend/models/cateringProduct.dart';
-
-String productPriceToString(double price) {
-  // return price.toInt() == price.floor() || price.toInt() == price.ceil()
-  //     ? price.toInt().toString()
-  //     : price.toString();
-  return price.toString();
-}
 
 Widget productRemoveAddButton(int productId, IconData icon, Function onClick) {
   return InkWell(
