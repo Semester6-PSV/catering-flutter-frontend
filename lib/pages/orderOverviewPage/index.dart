@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:catering_flutter_frontend/config/index.dart';
 class OrderOverviewPage extends StatefulWidget {
   const OrderOverviewPage({Key? key}) : super(key: key);
 
@@ -10,6 +10,14 @@ class OrderOverviewPage extends StatefulWidget {
 class OrderOverviewPageState extends State<OrderOverviewPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(child: const Text('OrderOverviewPage'));
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+            backgroundColor: COLOR_RED_DARK,
+            title: const Text('Openstaande bestellingen',
+                style: TextStyle(fontFamily: 'Klavika-Medium'))),
+        body: Column(children: []),
+      ),
+    );
   }
 }
