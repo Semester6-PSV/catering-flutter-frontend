@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:catering_flutter_frontend/config/index.dart';
-import 'package:catering_flutter_frontend/pages/orderPage/index.dart';
+import 'package:catering_flutter_frontend/pages/index.dart';
 
 void main() {
   runApp(const CateringApp());
@@ -19,7 +19,11 @@ class CateringApp extends StatelessWidget {
           splashColor: COLOR_GREY_LIGHT,
           colorScheme:
               ColorScheme.fromSwatch().copyWith(secondary: COLOR_GREY)),
-      home: const OrderPage(),
+          initialRoute: '/orderPage',
+          routes: <String, WidgetBuilder>{
+            '/orderPage': (BuildContext context) => const OrderPage(),
+            '/orderOverviewPage': (BuildContext context) => const OrderOverviewPage()
+          },
     );
   }
 }
