@@ -5,9 +5,12 @@ import 'package:catering_flutter_frontend/components/searchInput.dart';
 import 'package:catering_flutter_frontend/components/button.dart';
 import 'package:catering_flutter_frontend/pages/orderPage/components/orderBottomModal.dart';
 import 'components/cateringProductListView.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class OrderPage extends StatefulWidget {
-  const OrderPage({Key? key}) : super(key: key);
+  final IO.Socket socket;
+
+  const OrderPage({Key? key, required this.socket}) : super(key: key);
 
   @override
   OrderPageState createState() => OrderPageState();
@@ -18,6 +21,13 @@ class OrderPageState extends State<OrderPage> {
   int activeProductSelector = 0;
   List<CateringProduct> cateringProducts = dummyCateringProducts;
   CateringProductType selectedProductsType = CateringProductType.food;
+
+  @override
+  void initState(){
+    super.initState();
+
+    widget.socket.emit('sample-event', 'sample-data');
+  }
 
   void searchProductsByKeyword(String keyword) {
     return;

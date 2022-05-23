@@ -1,9 +1,12 @@
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:catering_flutter_frontend/pages/orderOverviewPage/components/openOrderBox.dart';
 import 'package:flutter/material.dart';
 import 'package:catering_flutter_frontend/config/index.dart';
 
 class OrderOverviewPage extends StatefulWidget {
-  const OrderOverviewPage({Key? key}) : super(key: key);
+  final IO.Socket socket;
+  
+  const OrderOverviewPage({Key? key, required this.socket}) : super(key: key);
 
   @override
   OrderOverviewPageState createState() => OrderOverviewPageState();
