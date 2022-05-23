@@ -1,11 +1,24 @@
+import 'package:catering_flutter_frontend/models/cateringOrder.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
-import 'package:catering_flutter_frontend/pages/orderOverviewPage/components/openOrderBox.dart';
 import 'package:flutter/material.dart';
 import 'package:catering_flutter_frontend/config/index.dart';
 
+import 'components/openOrderBox.dart';
+
+Column getOpenOrderBoxList(List<CateringOrder> openOrders) {
+  List<Widget> openOrderBoxes = [];
+
+  for (var order in openOrders) {
+    openOrderBoxes.add(
+        OpenOrderBox(orderId: order.id, cateringProducts: order.addedProducts));
+  }
+
+  return Column(children: openOrderBoxes);
+}
+
 class OrderOverviewPage extends StatefulWidget {
   final IO.Socket socket;
-  
+
   const OrderOverviewPage({Key? key, required this.socket}) : super(key: key);
 
   @override
@@ -32,14 +45,7 @@ class OrderOverviewPageState extends State<OrderOverviewPage> {
                     color: COLOR_WHITE,
                     padding: const EdgeInsets.fromLTRB(gridPadding,
                         gridPadding * 2, gridPadding, gridPadding * 2),
-                    child: Column(
-                      children: [
-                        OpenOrderBox(
-                            orderId: 25356,
-                            cateringProducts:
-                                routeArguments['cateringProducts']),
-                      ],
-                    ))))
+                    child: getOpenOrderBoxList(routeArguments['openOrders']))))
       ]),
     ));
   }

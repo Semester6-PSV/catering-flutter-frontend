@@ -3,7 +3,7 @@ import 'package:catering_flutter_frontend/config/index.dart';
 import 'package:catering_flutter_frontend/config/utils.dart';
 import 'package:catering_flutter_frontend/models/cateringProduct.dart';
 
-Widget productRemoveAddButton(int productId, IconData icon, Function onClick) {
+Widget productRemoveAddButton(CateringProduct product, IconData icon, Function onClick) {
   return InkWell(
       child: SizedBox(
         width: 30,
@@ -20,7 +20,7 @@ Widget productRemoveAddButton(int productId, IconData icon, Function onClick) {
           ),
         ),
       ),
-      onTap: () => {onClick(productId)});
+      onTap: () => {onClick(product)});
 }
 
 Widget cateringProductListView(
@@ -28,7 +28,7 @@ Widget cateringProductListView(
     CateringProductType productType,
     Function onItemRemove,
     Function onItemAdd) {
-  List<Widget> productItems = <Widget>[];
+    List<Widget> productItems = <Widget>[];
 
   for (int i = 0; i < products.length; i++) {
     CateringProduct product = products[i];
@@ -128,7 +128,7 @@ Widget cateringProductListView(
                             ),
                             Row(
                               children: [
-                                productRemoveAddButton(product.id,
+                                productRemoveAddButton(product,
                                     Icons.remove_outlined, onItemRemove),
                                 Padding(
                                     padding:
@@ -140,7 +140,7 @@ Widget cateringProductListView(
                                           color: COLOR_BLACK,
                                         ))),
                                 productRemoveAddButton(
-                                    product.id, Icons.add_outlined, onItemAdd),
+                                    product, Icons.add_outlined, onItemAdd),
                               ],
                             )
                           ],

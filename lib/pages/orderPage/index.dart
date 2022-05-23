@@ -1,3 +1,4 @@
+import 'package:catering_flutter_frontend/models/cateringOrder.dart';
 import 'package:flutter/material.dart';
 import 'package:catering_flutter_frontend/config/index.dart';
 import 'package:catering_flutter_frontend/models/cateringProduct.dart';
@@ -5,6 +6,7 @@ import 'package:catering_flutter_frontend/components/searchInput.dart';
 import 'package:catering_flutter_frontend/components/button.dart';
 import 'package:catering_flutter_frontend/pages/orderPage/components/orderBottomModal.dart';
 import 'components/cateringProductListView.dart';
+import 'dart:convert';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class OrderPage extends StatefulWidget {
@@ -23,10 +25,24 @@ class OrderPageState extends State<OrderPage> {
   CateringProductType selectedProductsType = CateringProductType.food;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
-    widget.socket.emit('sample-event', 'sample-data');
+    widget.socket.on('succesfully-created-order', (data) {
+      setState(() {
+        activeProductSelector = 0;
+
+        for (var product in cateringProducts) {
+          product.amount = 0;
+        }
+      });
+
+      List<CateringOrder> openOrders = List<CateringOrder>.from(
+          data.map((order) => CateringOrder.decode(order)));
+
+      Navigator.pushNamed(context, '/orderOverviewPage',
+          arguments: {'openOrders': openOrders});
+    });
   }
 
   void searchProductsByKeyword(String keyword) {
@@ -45,37 +61,42 @@ class OrderPageState extends State<OrderPage> {
     });
   }
 
-  void onProductItemRemove(int productId) {
-    for (var product in cateringProducts) {
-      if (product.id == productId) {
-        if (product.amount != 0) {
-          setState(() {
-            product.amount -= 1;
-          });
-        }
-      }
+  void onProductItemRemove(CateringProduct product) {
+    if (product.amount != 0) {
+      setState(() {
+        product.amount -= 1;
+      });
     }
   }
 
-  void onProductItemAdd(int productId) {
-    for (var product in cateringProducts) {
-      if (product.id == productId) {
-        setState(() {
-          product.amount += 1;
-        });
-      }
-    }
+  void onProductItemAdd(CateringProduct product) {
+    setState(() {
+      product.amount += 1;
+    });
   }
 
-  void finishOrder() {
-    Navigator.pushNamed(context, '/orderOverviewPage', arguments: {'cateringProducts': cateringProducts});
+  void createOrder() {
+    var addedProducts = getAddedProductsFromOrder(cateringProducts);
+
+    if (addedProducts.isNotEmpty) {
+      var stringifiedProducts = [];
+
+      for (var product in addedProducts) {
+        stringifiedProducts.add(jsonEncode(product));
+      }
+
+      widget.socket.emit('create-new-order', <String, dynamic>{
+        'totalPrice': getTotalPriceOfOrder(cateringProducts),
+        'addedProducts': stringifiedProducts
+      });
+    }
   }
 
   void openOrderPopup(context) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          return orderBottomModal(cateringProducts, finishOrder);
+          return orderBottomModal(cateringProducts, createOrder);
         });
   }
 
@@ -182,7 +203,7 @@ class OrderPageState extends State<OrderPage> {
                       child: CustomButton(
                     text: 'Bestelling afronden',
                     type: ButtonType.primary,
-                    onClick: finishOrder,
+                    onClick: createOrder,
                   )),
                 ]),
               ),

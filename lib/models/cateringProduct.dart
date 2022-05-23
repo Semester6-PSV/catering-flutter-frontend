@@ -15,12 +15,21 @@ class CateringProduct {
     required this.productType,
     required this.amount
   });
+
+  Map toJson() => {
+      'id': id.toString(),
+      'title': title,
+      'price': price.toString(),
+      'image': image,
+      'productType': productType.toString().split('.').last,
+      'amount': amount
+    };
 }
 
 List<CateringProduct> dummyCateringProducts = [
-  CateringProduct(id: 6, title: 'Broodje kroket', price: 2.5, image: '', productType: CateringProductType.food, amount: 0),
+  CateringProduct(id: 6, title: 'Broodje kroket', price: 2.5, image: 'test', productType: CateringProductType.food, amount: 0),
   CateringProduct(id: 8, title: 'Broodje frikandel', price: 2.5, image: '', productType: CateringProductType.food, amount: 0),
-  CateringProduct(id: 10, title: 'Kaassoufle ', price: 1.5, image: '', productType: CateringProductType.food, amount: 0),
+  CateringProduct(id: 10, title: 'Kaassoufle', price: 1.5, image: '', productType: CateringProductType.food, amount: 0),
   CateringProduct(id: 7, title: 'Friet mayonaise', price: 2, image: '', productType: CateringProductType.food, amount: 0),
   CateringProduct(id: 9, title: 'Friet met curry', price: 2, image: '', productType: CateringProductType.food, amount: 0),
 

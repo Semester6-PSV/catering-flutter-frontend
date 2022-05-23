@@ -1,3 +1,5 @@
+import 'package:catering_flutter_frontend/models/cateringProduct.dart';
+
 String productPriceToString(double price) {
   // return price.toInt() == price.floor() || price.toInt() == price.ceil()
   //     ? price.toInt().toString()
@@ -15,4 +17,16 @@ double getTotalPriceOfOrder(var cateringProducts) {
   }
 
   return totalPrice;
+}
+
+List<CateringProduct> getAddedProductsFromOrder(var cateringProducts) {
+  List<CateringProduct> products = [];
+
+  for (var product in cateringProducts) {
+    if (product.amount > 0) {
+      products.add(product);
+    }
+  }
+
+  return products;
 }
