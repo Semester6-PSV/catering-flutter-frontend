@@ -9,7 +9,6 @@ void main() {
     'autoConnect': true
   });
 
-  socket.on('sample-event', (data) => print(data));
   socket.onDisconnect((_) => print('disconnect'));
   socket.onConnectError((error) => print(error));
 
