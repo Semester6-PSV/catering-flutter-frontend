@@ -5,8 +5,9 @@ import 'package:catering_flutter_frontend/components/orderedCateringProductsList
 
 Widget orderBottomModal(var cateringProducts, Function() onFinish) {
   double totalPrice = getTotalPriceOfOrder(cateringProducts);
-  
-  return Container(
+
+  return SingleChildScrollView(
+      child: Container(
     width: double.infinity,
     padding: const EdgeInsets.all(30),
     decoration: const BoxDecoration(
@@ -37,10 +38,10 @@ Widget orderBottomModal(var cateringProducts, Function() onFinish) {
       Row(children: [
         Expanded(
             child: CustomButton(
-                text: 'Bestelling afronden',
+                text: 'Bestelling betalen',
                 type: ButtonType.primary,
                 onClick: onFinish))
       ])
     ]),
-  );
+  ));
 }
