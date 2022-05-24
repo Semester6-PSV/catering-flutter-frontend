@@ -5,12 +5,13 @@ class CateringOrder {
   final int id;
   final double totalPrice;
   final List<CateringProduct> addedProducts;
+  final bool scanned;
 
-  CateringOrder({
-    required this.id,
-    required this.totalPrice,
-    required this.addedProducts,
-  });
+  CateringOrder(
+      {required this.id,
+      required this.totalPrice,
+      required this.addedProducts,
+      required this.scanned});
 
   Map toJson() => {
         'id': id.toString(),
@@ -35,6 +36,7 @@ class CateringOrder {
     return CateringOrder(
         id: data['id'],
         totalPrice: data['totalPrice'],
-        addedProducts: addedProducts);
+        addedProducts: addedProducts,
+        scanned: false);
   }
 }
