@@ -24,24 +24,30 @@ class OrderPageState extends State<OrderPage> {
   List<CateringProduct> cateringProducts = dummyCateringProducts;
   CateringProductType selectedProductsType = CateringProductType.food;
 
+  void routeToOrdersOverview(var orders) {
+    List<CateringOrder> openOrders = List<CateringOrder>.from(
+        orders.map((order) => CateringOrder.decode(order)));
+
+    //   setState(() {
+    //     activeProductSelector = 0;
+
+    //     for (var product in cateringProducts) {
+    //       product.amount = 0;
+    //     }
+    //   });
+
+    Navigator.pushNamed(context, '/orderOverviewPage',
+        arguments: {'openOrders': openOrders});
+  }
+
   @override
   void initState() {
     super.initState();
 
-    widget.socket.on('succesfully-created-order', (data) {
-      setState(() {
-        activeProductSelector = 0;
-
-        for (var product in cateringProducts) {
-          product.amount = 0;
-        }
-      });
-
-      List<CateringOrder> openOrders = List<CateringOrder>.from(
-          data.map((order) => CateringOrder.decode(order)));
-
-      Navigator.pushNamed(context, '/orderOverviewPage',
-          arguments: {'openOrders': openOrders});
+    widget.socket.emitWithAck('request-all-orders', 'data', ack: (orders) {
+      if(orders.isNotEmpty){
+        routeToOrdersOverview(orders);
+      }
     });
   }
 
@@ -85,9 +91,11 @@ class OrderPageState extends State<OrderPage> {
         stringifiedProducts.add(jsonEncode(product));
       }
 
-      widget.socket.emit('create-new-order', <String, dynamic>{
+      widget.socket.emitWithAck('create-new-order', <String, dynamic>{
         'totalPrice': getTotalPriceOfOrder(cateringProducts),
         'addedProducts': stringifiedProducts
+      }, ack: (orders) {
+        routeToOrdersOverview(orders);
       });
     }
   }

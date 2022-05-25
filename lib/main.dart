@@ -4,7 +4,7 @@ import 'package:catering_flutter_frontend/pages/index.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 void main() {
-  IO.Socket socket = IO.io('http://192.168.178.64:1080', <String, dynamic>{
+  IO.Socket socket = IO.io('http://145.93.140.237:1080', <String, dynamic>{
     'transports': ['websocket'],
     'autoConnect': true
   });

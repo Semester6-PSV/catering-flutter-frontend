@@ -9,8 +9,7 @@ Column getOpenOrderBoxList(List<CateringOrder> openOrders) {
   List<Widget> openOrderBoxes = [];
 
   for (var order in openOrders) {
-    openOrderBoxes.add(
-        OpenOrderBox(orderId: order.id, cateringProducts: order.addedProducts));
+    openOrderBoxes.add(OpenOrderBox(order: order));
   }
 
   return Column(children: openOrderBoxes);
@@ -26,10 +25,31 @@ class OrderOverviewPage extends StatefulWidget {
 }
 
 class OrderOverviewPageState extends State<OrderOverviewPage> {
+  List<CateringOrder> orders = [];
+  bool initOrdersSet = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    widget.socket.on('update-orders', (orders) {
+      print(orders);
+      if (mounted) {
+        setState(() {
+          orders = orders;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final routeArguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
+
+        setState(() {
+          orders = routeArguments['openOrders'];
+        });
 
     return SafeArea(
         child: Scaffold(
@@ -45,7 +65,7 @@ class OrderOverviewPageState extends State<OrderOverviewPage> {
                     color: COLOR_WHITE,
                     padding: const EdgeInsets.fromLTRB(gridPadding,
                         gridPadding * 2, gridPadding, gridPadding * 2),
-                    child: getOpenOrderBoxList(routeArguments['openOrders']))))
+                    child: getOpenOrderBoxList(orders))))
       ]),
     ));
   }

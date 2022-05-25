@@ -1,16 +1,14 @@
 import 'package:catering_flutter_frontend/components/orderedCateringProductsList.dart';
-import 'package:catering_flutter_frontend/models/cateringProduct.dart';
+import 'package:catering_flutter_frontend/models/cateringOrder.dart';
 import 'package:flutter/material.dart';
 import 'package:catering_flutter_frontend/config/index.dart';
 
 class OpenOrderBox extends StatefulWidget {
-  final int orderId;
-  final List<CateringProduct> cateringProducts;
+  final CateringOrder order;
 
   const OpenOrderBox(
       {Key? key,
-      required this.orderId,
-      required this.cateringProducts})
+      required this.order})
       : super(key: key);
 
   @override
@@ -18,11 +16,9 @@ class OpenOrderBox extends StatefulWidget {
 }
 
 class OpenOrderBoxState extends State<OpenOrderBox> {
-  bool orderIsReady = false;
-
   @override
   Widget build(BuildContext context) {
-    double totalPrice = getTotalPriceOfOrder(widget.cateringProducts);
+    double totalPrice = getTotalPriceOfOrder(widget.order.addedProducts);
 
     return Column(
       children: [
@@ -34,11 +30,11 @@ class OpenOrderBoxState extends State<OpenOrderBox> {
               margin: const EdgeInsets.only(right: 8, bottom: 4),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: orderIsReady ? COLOR_GREEN : COLOR_RED_DARK,
+                  color: widget.order.done ? COLOR_GREEN : COLOR_RED_DARK,
                   borderRadius: const BorderRadius.all(Radius.circular(100))),
             ),
             Text(
-                orderIsReady ? 'Klaar om af te halen' : 'In behandeling',
+                widget.order.done ? 'Klaar om af te halen' : 'In behandeling',
                 style:
                     const TextStyle(fontFamily: 'Klavika-Light', fontSize: 18))
           ],
@@ -63,7 +59,7 @@ class OpenOrderBoxState extends State<OpenOrderBox> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Bestelling #' + widget.orderId.toString(),
+                        Text('Bestelling #' + widget.order.id.toString(),
                             style: const TextStyle(
                                 fontFamily: 'Klavika-Medium', fontSize: 20)),
                         const SizedBox(height: 5),
@@ -113,7 +109,7 @@ class OpenOrderBoxState extends State<OpenOrderBox> {
             const SizedBox(height: 10),
             SizedBox(
                 width: double.infinity,
-                child: orderedCateringProductsList(widget.cateringProducts))
+                child: orderedCateringProductsList(widget.order.addedProducts))
           ]),
         ),
         const SizedBox(height: 60)

@@ -37,7 +37,7 @@ class CateringOrder {
 
     return CateringOrder(
         id: data['id'],
-        totalPrice: data['totalPrice'],
+        totalPrice: double.parse(data['totalPrice'].toString()),
         addedProducts: addedProducts,
         done: false,
         scanned: false);
